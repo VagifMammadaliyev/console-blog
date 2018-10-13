@@ -29,3 +29,9 @@ class Page(object):
     # handles swithcing pages accordingly to selected action
     def actions_handler(self):
         raise exceptions.PageNotCompletedError()
+
+
+#
+# Some classes in consoleblog.pages modules are not designed very well!
+# Keep that in mind!!!
+#
