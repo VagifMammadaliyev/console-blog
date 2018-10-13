@@ -4,8 +4,8 @@ This is implementation of some social blogging application, but for now it is on
 
 ## What is this app supposed to do right now?
 
-* Allow user to create his/her own account with username and password (there is one user added (username: 'vaqif', password: '1') for testing purposes)
-* Allow user to log in his/her account and see other users' posts
+* Allow user to create his/her own account with username and password (there is one user added (username: 'vaqif', password: '1') for testing purpose. NOTE: However, it is now allowed to set password wiht length less than 8 symbols!)
+* Allow user to log in to his/her account and see other users' posts
 * Read, create, update, delete his/her own posts
 
 ## What is this app created for?
