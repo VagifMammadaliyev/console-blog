@@ -1,5 +1,5 @@
 from consoleblog.pages.page import Page
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.validations.validator import PostValidator
 from consoleblog.core.application import lib, settings
 from consoleblog.core.application.session import session
@@ -27,7 +27,7 @@ class CreatePostPage(Page):
                 alrt = 'Post is created!'
                 alerter = session.get_alerter()
                 alerter.schedule_alert(alrt)
-                database.Database.save(self.creator.newpost)
+                ramdb.save(self.creator.newpost)
                 return 'POST_PAGE'
             else:
                 lib.print_alert(self.creator.response.get_message())

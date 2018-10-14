@@ -22,12 +22,12 @@ class LoginPage(Page):
         self.user = authenticator.nice_user(self.l_username, self.l_password)
 
     def add_to_session(self, user):
-        pass
+        session.add(user)
 
     def actions_handler(self):
         if self.user:
             # global session
-            session.add(self.user)
+            self.add_to_session(self.user)
             alrt = 'Logged in successfully!'
             session.get_alerter().schedule_alert(alrt)
             return 'HOME_PAGE'

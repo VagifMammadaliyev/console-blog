@@ -1,5 +1,5 @@
 from consoleblog.pages.page import Page
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.application.session import session
 from consoleblog.core.application import lib, settings
 
@@ -90,7 +90,7 @@ class DeletePostPage(Page):
             if self.user.posts:
                 if self.select != -1:
                     alerter.schedule_alert('Post was deleted!')
-                    database.Database.remove('posts', int(self.select))
+                    ramdb.remove('posts', int(self.select))
                     return 'POST_PAGE'
                 else:
                     print('Nothing is selected!')

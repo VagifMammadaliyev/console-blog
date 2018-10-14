@@ -1,5 +1,5 @@
 from consoleblog.pages.page import Page
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.validations.validator import UserValidator
 from consoleblog.core.application import lib, settings, session
 
@@ -25,7 +25,7 @@ class RegisterPage(Page):
         if response.is_valid():
             alrt = 'User was successfully created! You can now login!'            
             alerter.schedule_alert(alrt)
-            database.Database.save(new_user)
+            ramdb.save(new_user)
         else:
             alerter.schedule_alert((response.get_message()))
 

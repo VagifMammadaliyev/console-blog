@@ -1,10 +1,10 @@
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 
 class Authenticator(object):
 
     def nice_user(self, username, password):
         nice_user = None
-        users = database.Database.users
+        users = ramdb.get_all('users')
 
         for user in users:
             if username == user.username and password == user.password:

@@ -1,4 +1,4 @@
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.application.lib import Alerter
 
 class Session(object):
@@ -12,7 +12,7 @@ class Session(object):
 
     def add(self, user):
         self.current['user'] = user
-        self.current['posts'] = database.Database.get_all('posts') 
+        self.current['posts'] = ramdb.get_all('posts') 
 
     def get_user(self):
         return self.current.get('user')

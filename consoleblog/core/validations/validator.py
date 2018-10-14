@@ -1,4 +1,4 @@
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from .response import Response
 
 
@@ -28,7 +28,7 @@ class UserValidator(Validator):
         return self.response
 
     def check_username(self, username):
-        return not database.Database.name_exists('users', username)
+        return not ramdb.name_exists('users', username)
 
     def check_password(self, password):
         if len(password) > 7:
@@ -81,7 +81,7 @@ class PostValidator(Validator):
         elif len(title) < 2:
             resp_title['short'] = True
 
-        if database.Database.name_exists('posts', title):
+        if ramdb.name_exists('posts', title):
             resp_title['used'] = True
 
         return resp_title

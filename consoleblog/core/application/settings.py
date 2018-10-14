@@ -1,8 +1,8 @@
 import os
 
-APP_NAME = 'ConsoleNet'
+APP_NAME = 'ConsoleBlog'
 
-VERSION = 'v0.0.1'
+VERSION = 'v0.1.0'
 
 START_PAGE = 'START_PAGE'
 

@@ -1,6 +1,6 @@
 from consoleblog.pages.page import Page
 from consoleblog.core.application.session import session
-from consoleblog.core.DAL import database
+from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.application import lib, settings
 from consoleblog.models.helpers.post_creator import PostCreator
 
@@ -64,7 +64,7 @@ class UpdatePostPage(Page):
                 self.creator.create()
 
                 # allow same name for title
-                self.oldpost = database.Database.get_by_id('posts', self.select)
+                self.oldpost = ramdb.get_by_id('posts', self.select)
 
                 if self.oldpost.title == self.creator.title:
                     errmsg = 'Post with such title already exists!'
