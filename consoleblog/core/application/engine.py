@@ -2,17 +2,18 @@ from os import system
 
 from consoleblog.core.application import (map_, settings,
                                         lib, exceptions, session)
+from consoleblog.pages.start_page import StartPage
 
 
 class Engine(object):
 
-    def start(self, start_page = settings.START_PAGE):
+    def start(self, start_page=StartPage()):
         system('clear')
         self.open(start_page)
 
-    def open(self, page_name):
+    def open(self, page):
         print(settings.long_border)
-        page = map_.Map.next_page(page_name)
+        page = map_.Map.next_page(page)
 
         while 1:
             try:
@@ -21,9 +22,9 @@ class Engine(object):
                 if alerter.has_message():
                     lib.print_alert(alerter.get_alert())
 
-                next_page_name = page.show()
+                next_page = page.show()
                 system('clear')
-                page = map_.Map.next_page(next_page_name)
+                page = map_.Map.next_page(next_page)
             except exceptions.PageNotCompletedError as e:
                 print(e.message)
                 print('Terminating app...')

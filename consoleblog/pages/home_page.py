@@ -1,14 +1,15 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.home_page as hp
+import consoleblog.pages.profile_page as pp
+
 from consoleblog.core.application.session import session
 from consoleblog.core.application import settings, lib
 
 
-class HomePage(Page):
+class HomePage(p.Page):
 
-    page = 1            
-    post_per_page = 3
-
-    def __init__(self):
+    def __init__(self, *, postsperpage=3, currentpage=1):
+        super().__init__(postsperpage, currentpage)
         self.action_choices = {
             '1': 'Prev page',
             '2': 'Next page',
@@ -26,33 +27,33 @@ class HomePage(Page):
 
         if posts:
             disp = lib.Displayer(posts, 
-                            HomePage.page, 
-                            HomePage.post_per_page)
+                            self.currentpage, 
+                            self.postsperpage)
             disp.show()
 
             # Number of pages
             self.num = disp.get_page_amount()
             lib.print_alert('Number of pages: %s\nCurrent Page: %s' % \
-                                        (self.num, HomePage.page))
+                                        (self.num, self.currentpage))
         else:
             self.num = 1
             lib.print_alert('Number of pages: %s\nCurrent Page: %s' % \
-                                        (self.num, HomePage.page)) 
+                                        (self.num, self.currentpage)) 
 
 
     def actions_handler(self):
         action = input(settings.action_promt)
 
         if action == '1':
-            if HomePage.page != 1: 
-                HomePage.page -= 1
-            return 'HOME_PAGE'
+            if self.currentpage != 1: 
+                self.currentpage -= 1
+            return hp.HomePage(currentpage=self.currentpage)
         elif action == '2':
-            if HomePage.page != self.num:
-                HomePage.page += 1
-            return 'HOME_PAGE'
+            if self.currentpage != self.num:
+                self.currentpage += 1
+            return hp.HomePage(currentpage=self.currentpage)
         elif action == '3':
-            return 'PROFILE_PAGE'
+            return pp.ProfilePage()
         else:
             print('Invalid input!')
             return self.actions_handler()

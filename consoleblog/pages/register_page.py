@@ -1,15 +1,12 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.start_page as sp
 from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.validations.validator import UserValidator
 from consoleblog.core.application import lib, settings, session
 
 from consoleblog.models import user
 
-class RegisterPage(Page):
-
-    def __init__(self):
-        super().__init__()
-        self.action = 'START_PAGE'
+class RegisterPage(p.Page):
     
     def content(self):
         print('Pick up a username:')
@@ -48,4 +45,4 @@ class RegisterPage(Page):
         return new_user
 
     def actions_handler(self):
-        return self.action
+        return sp.StartPage()

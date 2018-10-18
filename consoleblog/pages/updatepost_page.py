@@ -1,17 +1,17 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.updatepost_page as up
+import consoleblog.pages.post_page as pp
+
 from consoleblog.core.application.session import session
 from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.application import lib, settings
 from consoleblog.models.helpers.post_creator import PostCreator
 
 
-class UpdatePostPage(Page):
+class UpdatePostPage(p.Page):
 
-    page = 1
-    ppp = 3                     # posts per page
-    is_typing = False           # if user must type in ID
-
-    def __init__(self):
+    def __init__(self, *, postsperpage=3, currentpage=1, is_typing=False):
+        super().__init__(postsperpage, currentpage, is_typing)
         self.action_choices = {
             '1': 'Prev page',
             '2': 'Next page',
@@ -25,22 +25,21 @@ class UpdatePostPage(Page):
         self.creator = None
         self.num = 1        # don't let this shit to distract you
 
-        global session
         self.user = session.get_user()
 
         if self.user.posts:
             # show posts
             disp = lib.Displayer(self.user.posts, 
-                        UpdatePostPage.page, 
-                        UpdatePostPage.ppp)
+                        self.currentpage, 
+                        self.postsperpage)
             disp.show(author=False, content=False, id_=True)
 
             # Number of pages
             self.num = disp.get_page_amount()
             lib.print_alert('Number of pages: %s\nCurrent Page: %s' % \
-                                        (self.num, UpdatePostPage.page))
+                                        (self.num, self.currentpage))
 
-            if UpdatePostPage.is_typing:
+            if self.is_typing:
                 print('Type in id of post you want to update:')
                 
                 self.select = -1
@@ -70,7 +69,7 @@ class UpdatePostPage(Page):
                     errmsg = 'Post with such title already exists!'
                     if self.creator.response.get_message() == errmsg:
                         # forcing to be a valid post
-                        self.creator.response['is_valid'] = True
+                        self.creator.response.set_validity(True)
 
         else:
             print('You have not any posts yet!')
@@ -79,32 +78,29 @@ class UpdatePostPage(Page):
         action = input(settings.action_promt)
 
         if action == '1':
-            UpdatePostPage.is_typing = False
-            if UpdatePostPage.page != 1:
-                UpdatePostPage.page -= 1
-            return 'UPDATE_POST'
+            if self.currentpage != 1:
+                self.currentpage -= 1
+            return up.UpdatePostPage(currentpage=self.currentpage)
         elif action == '2':
-            UpdatePostPage.is_typing = False
-            if UpdatePostPage.page != self.num:
-                UpdatePostPage.page += 1
-            return 'UPDATE_POST'
+            if self.currentpage != self.num:
+                self.currentpage += 1
+            return up.UpdatePostPage(currentpage=self.currentpage)
         elif action == '3':
-            UpdatePostPage.is_typing = False
             if self.user.posts:
-                UpdatePostPage.is_typing = True
+                self.is_typing = True
             else:
                 print('There is no posts!')
                 return self.actions_handler()
-            return 'UPDATE_POST'
+            return up.UpdatePostPage(currentpage=self.currentpage,
+                                     is_typing=self.is_typing)
         elif action == '4':
-            UpdatePostPage.is_typing = False
             if self.user.posts and self.creator:
                 if self.creator.response.is_valid():
                     self.oldpost.title = self.creator.get_post().title
                     self.oldpost.content = self.creator.get_post().content
                     alerter = session.get_alerter()
                     alerter.schedule_alert('Post was updated!')
-                    return 'POST_PAGE'
+                    return pp.PostPage()
                 else:
                     lib.print_alert(self.creator.response.get_message())
                     return self.actions_handler()
@@ -112,8 +108,7 @@ class UpdatePostPage(Page):
             print('Nothing to save!')
             return self.actions_handler()
         elif action == '5':
-            UpdatePostPage.is_typing = False
-            return 'POST_PAGE'
+            return pp.PostPage()
         else:
             print('Invalid input!')
             return self.actions_handler()

@@ -15,6 +15,7 @@ I wrote this code in order to understand for myself the logic which web applicat
 
 ## How to run this app?
 
+* Set your ```PYTHONPATH``` to ```.```
 * Run the app.py script that is in ```/bin``` directory
 
   ```bash

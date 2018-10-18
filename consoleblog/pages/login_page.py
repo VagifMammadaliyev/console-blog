@@ -1,14 +1,13 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.start_page as sp
+import consoleblog.pages.home_page as hp
+
 from consoleblog.core.auth.authenticator import Authenticator
 from consoleblog.core.application.session import session
 from consoleblog.core.application import settings, lib
 
 
-class LoginPage(Page):
-
-    def __init__(self):
-        super().__init__()
-        self.action = 'START_PAGE'
+class LoginPage(p.Page):
         
     def content(self):
         print('Enter username:')
@@ -30,8 +29,8 @@ class LoginPage(Page):
             self.add_to_session(self.user)
             alrt = 'Logged in successfully!'
             session.get_alerter().schedule_alert(alrt)
-            return 'HOME_PAGE'
+            return hp.HomePage()
         else:
             alrt = 'Incorrect username or password!'
             session.get_alerter().schedule_alert(alrt)
-            return self.action
+            return sp.StartPage()

@@ -1,4 +1,6 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.post_page as pp
+
 from consoleblog.core.DAL.database import ramdb
 from consoleblog.core.validations.validator import PostValidator
 from consoleblog.core.application import lib, settings
@@ -6,7 +8,7 @@ from consoleblog.core.application.session import session
 
 from consoleblog.models.helpers import post_creator
 
-class CreatePostPage(Page):
+class CreatePostPage(p.Page):
     
     def __init__(self):
         self.action_choices = {
@@ -28,12 +30,12 @@ class CreatePostPage(Page):
                 alerter = session.get_alerter()
                 alerter.schedule_alert(alrt)
                 ramdb.save(self.creator.newpost)
-                return 'POST_PAGE'
+                return pp.PostPage()
             else:
                 lib.print_alert(self.creator.response.get_message())
                 return self.actions_handler()
         elif action == '2':
-            return 'POST_PAGE'
+            return pp.PostPage()
         else:
             print('Invalid input!')
             return self.actions_handler()

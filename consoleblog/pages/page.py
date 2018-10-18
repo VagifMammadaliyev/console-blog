@@ -3,8 +3,13 @@ from consoleblog.core.application import exceptions
 
 class Page(object):
 
-    def __init__(self):
-        self.action_choices = None
+    def __init__(self, postsperpage=0, currentpage=0, is_typing=False):
+        self.action_choices = None  # dict of actions
+        self.postsperpage = postsperpage # number of posts per page
+        self.currentpage = currentpage # current page of posts
+        self.is_typing = is_typing # if user must do some special action
+                                   # for example select id of post to delete
+                                   # this action must not interrupt main 'page-flow'
 
     def show(self):
         self.content()

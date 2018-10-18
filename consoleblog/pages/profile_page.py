@@ -1,8 +1,13 @@
-from consoleblog.pages.page import Page
+import consoleblog.pages.page as p
+import consoleblog.pages.post_page as pp
+import consoleblog.pages.home_page as hp
+import consoleblog.pages.start_page as sp
+
 from consoleblog.core.application.session import session
 from consoleblog.core.application import lib, settings
+
  
-class ProfilePage(Page):
+class ProfilePage(p.Page):
     
     def __init__(self):
         self.action_choices = {
@@ -22,14 +27,14 @@ class ProfilePage(Page):
         action = input(settings.action_promt)
 
         if action == '1':
-            return 'POST_PAGE'
+            return pp.PostPage()
         elif action == '2':
-            return 'HOME_PAGE'
+            return hp.HomePage()
         elif action == '3':
             session.clear()
             alerter = session.get_alerter()
             alerter.schedule_alert('Logged out!')
-            return 'START_PAGE'
+            return sp.StartPage()
         else:
             print('Invalid input!')
             return self.actions_handler()
