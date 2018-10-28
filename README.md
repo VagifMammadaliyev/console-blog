@@ -26,5 +26,5 @@ I wrote this code in order to understand for myself the logic which web applicat
 
 ### Note
 
-* There is no way to keep your data after terminating the app yet.
+* App will save your data to xml file (```data.xml```).
 * My python version: 3.7.0
