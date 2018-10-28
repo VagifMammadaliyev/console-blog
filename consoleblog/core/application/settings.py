@@ -4,6 +4,8 @@ APP_NAME = 'ConsoleBlog'
 
 VERSION = 'v0.1.0'
 
+XML_DB_FILE = 'data.xml'
+
 ######################################################################################
 
 rows, columns = os.popen('stty size', 'r').read().split()    # terminal size

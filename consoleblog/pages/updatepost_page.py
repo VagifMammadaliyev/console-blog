@@ -96,8 +96,7 @@ class UpdatePostPage(p.Page):
         elif action == '4':
             if self.user.posts and self.creator:
                 if self.creator.response.is_valid():
-                    self.oldpost.title = self.creator.get_post().title
-                    self.oldpost.content = self.creator.get_post().content
+                    ramdb.update(self.creator.get_post(), self.oldpost)
                     alerter = session.get_alerter()
                     alerter.schedule_alert('Post was updated!')
                     return pp.PostPage()

@@ -9,3 +9,11 @@ class User(object):
         self.status = status
         self.posts = []
         self.id = -1
+
+    def update(self, new):
+        self.username = new.username
+        self.password = new.password
+        self.status = new.status
+
+    def typetostring(self):
+        return 'user'

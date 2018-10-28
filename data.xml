@@ -1,0 +1,20 @@
+<data>
+
+    <models>
+
+        <users>          
+        </users>
+
+        <posts>
+        </posts>
+
+    </models>
+
+    <busyids>
+
+        <users>-1</users>
+        <posts>-1</posts>
+        
+    </busyids>
+
+</data>
