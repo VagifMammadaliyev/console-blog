@@ -14,14 +14,10 @@ class PostCreator(object):
         self.__promt_title()
         self.__promt_content()
 
-        # create new post info
-        p_info = {
-            'title': self.title,
-            'author': self.author,
-            'content': self.content
-        }
-
-        self.newpost = Post(p_info)
+        # create new post
+        self.newpost = Post(title=self.title, 
+                            author=self.author, 
+                            content=self.content)
 
         validator = PostValidator()
         self.response = validator.check(self.newpost)

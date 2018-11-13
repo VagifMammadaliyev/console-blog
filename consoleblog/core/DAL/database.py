@@ -214,8 +214,6 @@ class XmlDatabase(Database):
             else:
                 field.text = str(new.author.id)
 
-        print('ima here')
-
         tree.write(self.filename)
 
     def remove(self, which, id_):
@@ -258,3 +256,4 @@ class IdHandler(object):
 
 # Instance below is used globally!!!
 ramdb = XmlDatabase(XML_DB_FILE)
+# ramdb = Database()

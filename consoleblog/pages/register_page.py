@@ -34,13 +34,10 @@ class RegisterPage(p.Page):
         password = input(settings.promt)
         return password
 
-    def create_user(self, username, password):
-        new_user_info = {
-            'username': username,
-            'password': password
-        }
+    def create_user(self, username, password): 
 
-        new_user = user.User(new_user_info)
+        new_user = user.User(username=username, 
+                             password=password)
 
         return new_user
 

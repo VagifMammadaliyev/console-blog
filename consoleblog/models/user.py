@@ -3,7 +3,7 @@ class User(object):
     # status = 0 -> user
     # status = 1 -> admin
 
-    def __init__(self, ui, status=0):
+    def __init__(self, status=0, **ui):
         self.username = ui.get('username')
         self.password = ui.get('password')
         self.status = status
