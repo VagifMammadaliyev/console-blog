@@ -120,9 +120,9 @@ class XmlDatabase(Database):
                         info.update({ field.tag: field.text })
 
                     if lsname == 'users':
-                        newobj = user.User(info)
+                        newobj = user.User(**info)
                     if lsname == 'posts':
-                        newobj = post.Post(info)
+                        newobj = post.Post(**info)
 
                     newobj.id = id_  
 
